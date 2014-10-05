@@ -8,20 +8,15 @@ class Cart
 
   def initialize
     @merchandise = Hash.new(0)
+    @prices = Hash.new(0)
     @total = 0
   end
 
   def add(item)
-    @merchandise[item] += 1
+    item_count = @merchandise[item] += 1
 
-    compute_total
-  end
+    @prices[item] = item.compute_total(item_count)
 
-  def compute_total
-    @total = 0
-
-    @merchandise.each do |item, number|
-      @total += item.compute_total(number)
-    end
+    @total = @prices.values.inject { |sum, x| sum + x }
   end
 end
