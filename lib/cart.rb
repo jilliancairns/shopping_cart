@@ -7,16 +7,12 @@ class Cart
   attr_reader :total
 
   def initialize
-    @merchandise = {}
+    @merchandise = Hash.new(0)
     @total = 0
   end
 
   def add(item)
-    if @merchandise.has_key? item
-      @merchandise[item] += 1
-    else
-      @merchandise[item] = 1
-    end
+    @merchandise[item] += 1
 
     compute_total
   end
