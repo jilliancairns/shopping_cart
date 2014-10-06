@@ -13,10 +13,16 @@ class Cart
   end
 
   def add(item)
+    validate_item(item)
+
     item_count = @merchandise[item] += 1
 
     @prices[item] = item.compute_total(item_count)
 
     @total = @prices.values.inject { |sum, x| sum + x }
+  end
+
+  def validate_item(item)
+    raise "Invalid item #{item.inspect}, expecting #{Item.inspect}" unless item.is_a? Class and item < Item
   end
 end

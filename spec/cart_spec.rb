@@ -96,7 +96,7 @@ describe Cart do
   end
 
   context "mixed carts" do
-    specify "apples and pears" do
+    specify "#apples and pears" do
       @cart.add(Apple)
       @cart.add(Pear)
       @cart.add(Apple)
@@ -106,7 +106,7 @@ describe Cart do
       expect(@cart.total).to eq(expected_total)
     end
 
-    specify "apples and oranges" do
+    specify "#apples and oranges" do
       @cart.add(Orange)
       @cart.add(Apple)
       @cart.add(Orange)
@@ -118,7 +118,7 @@ describe Cart do
       expect(@cart.total).to eq(expected_total)
     end
 
-    specify "pears and oranges" do
+    specify "#pears and oranges" do
       @cart.add(Pear)
       @cart.add(Pear)
       @cart.add(Orange)
@@ -129,7 +129,7 @@ describe Cart do
       expect(@cart.total).to eq(expected_total)
     end
 
-    specify "all three" do
+    specify "#all three" do
       @cart.add(Apple)
       @cart.add(Apple)
       @cart.add(Pear)
@@ -142,6 +142,15 @@ describe Cart do
       # two for 1.50 on apples, bogo half off on pears, four for 1.00 on oranges
       expected_total = 1.50 + 1.50 + 0.75 + 1.00
       expect(@cart.total).to eq(expected_total)
+    end
+  end
+
+  context "bad item" do
+    specify { expect { @cart.add(:apple) }.to raise_error }
+
+    specify do
+      class Pineapple; end
+      expect { @cart.add(Pineapple) }.to raise_error
     end
   end
 end
