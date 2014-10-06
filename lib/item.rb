@@ -7,14 +7,14 @@ class Item
     remaining = n
     total = 0
 
-    costs = self.get_costs
-    costs_descending = costs.keys.sort.reverse
+    prices = self.get_prices
+    prices_descending = prices.keys.sort.reverse
 
-    costs_descending.each do |num_purchased|
-      while remaining >= num_purchased
-        total += costs[num_purchased]
-        remaining -= num_purchased
-      end
+    prices_descending.each do |num_to_purchase|
+      price = prices[num_to_purchase]
+      count_at_this_price = (remaining / num_to_purchase).floor
+      total += price.* count_at_this_price
+      remaining -= count_at_this_price.* num_to_purchase
     end
 
     total
