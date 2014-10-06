@@ -22,6 +22,8 @@ class Cart
     @total = @prices.values.inject { |sum, x| sum + x }
   end
 
+  private
+
   def validate_item(item)
     raise "Invalid item #{item.inspect}, expecting #{Item.inspect}" unless item.is_a? Class and item < Item
   end
